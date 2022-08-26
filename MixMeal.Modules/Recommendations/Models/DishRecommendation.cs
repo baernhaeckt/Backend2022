@@ -1,4 +1,5 @@
-﻿using MixMeal.Core.Models;
+﻿
+using MixMeal.Core.Models;
 
 namespace MixMeal.Modules.Recommendations.Models;
 

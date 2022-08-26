@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MixMeal.Core\MixMeal.Core.csproj" />
+  </ItemGroup>
+
 </Project>
