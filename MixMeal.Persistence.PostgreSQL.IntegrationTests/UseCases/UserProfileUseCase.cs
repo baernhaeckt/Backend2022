@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using MixMeal.Core.Models;
 using MixMeal.Modules.UserManagement.Abstraction;
 using System;
@@ -9,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace MixMeal.Persistence.PostgreSQL.IntegrationTests;
+namespace MixMeal.Persistence.PostgreSQL.IntegrationTests.UseCases;
 
 [Collection("PostgreSQL")]
 public class UserProfileUseCase
@@ -56,7 +57,7 @@ public class UserProfileUseCase
         _postgreSQLFixture.DbContext.Add(user);
         _postgreSQLFixture.DbContext.SaveChanges();
 
-        ISecurityTokenFactory securityTokenFactory = (ISecurityTokenFactory)application.Services.GetService(typeof(ISecurityTokenFactory));
+        ISecurityTokenFactory securityTokenFactory = application.Services.GetRequiredService<ISecurityTokenFactory>();
         string jwt = securityTokenFactory!.Create(user.Id, user.Email, Enumerable.Empty<string>());
 
         var client = application.CreateClient();
@@ -64,7 +65,7 @@ public class UserProfileUseCase
 
         // Act
         HttpResponseMessage response = await client.GetAsync("api/profile");
-        
+
         // Assert
         response.EnsureSuccessStatusCode();
         string result = await response.Content.ReadAsStringAsync();
