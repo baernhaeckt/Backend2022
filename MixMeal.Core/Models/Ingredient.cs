@@ -1,4 +1,7 @@
-﻿namespace MixMeal.Core.Models;
+﻿using System.Collections;
+using System.Formats.Asn1;
+
+namespace MixMeal.Core.Models;
 
 public class Ingredient
 {
@@ -8,9 +11,22 @@ public class Ingredient
 
     public double Calories { get; init; }
 
+    public double Proteins { get; init; }
+
     public double Carbohydrates { get; init; }
 
     public double Fat { get; init; }
+
+    /// <summary>
+    ///     Provides a list of <see cref="Allergy"/> which could be triggered by
+    ///     this <see cref="Ingredient"/>.
+    /// </summary>
+    public List<Allergy> Allergies { get; init; } = new List<Allergy>();
+
+    /// <summary>
+    ///     List of Tags to describe and group <see cref="Ingredient"/>.
+    /// </summary>
+    public List<IngredientTag> Tags { get; init; } = new List<IngredientTag>();
 
     public bool Premium { get; set; } = false;
 

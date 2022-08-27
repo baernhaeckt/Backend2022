@@ -1,4 +1,6 @@
-﻿namespace MixMeal.Core.Repositories;
+﻿using System.Linq.Expressions;
+
+namespace MixMeal.Core.Repositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {
@@ -7,4 +9,6 @@ public interface IRepository<TEntity> where TEntity : class
     Task Delete(TEntity entity);
 
     IAsyncEnumerable<TEntity> GetAll();
+
+    IQueryable<TEntity> Queryable { get; }
 }
