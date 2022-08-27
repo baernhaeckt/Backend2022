@@ -1,12 +1,11 @@
-﻿namespace MixMeal.Persistence.PostgreSQL
+﻿namespace MixMeal.Persistence.PostgreSQL;
+
+public class MyEntity
 {
-    public class MyEntity
-    {
 
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Email { get; set; }
-    }
+    public string Email { get; set; }
 }

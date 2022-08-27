@@ -1,7 +1,6 @@
-﻿namespace MixMeal.Persistence.PostgreSQL.IntegrationTests
-{
-    public class Startup
-    {
+﻿namespace MixMeal.Persistence.PostgreSQL.IntegrationTests;
 
-    }
+public class Startup
+{
+
 }
