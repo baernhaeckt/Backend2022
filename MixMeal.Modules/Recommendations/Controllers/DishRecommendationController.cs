@@ -1,6 +1,7 @@
-﻿using MixMeal.Modules.Recommendations.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using MixMeal.Modules.Recommendations.Models;
 
-namespace MixMeal.Controllers;
+namespace MixMeal.Modules.Recommendations.Controllers;
 
 public class DishRecommendationController
 {
