@@ -15,7 +15,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
 using MixMeal.Modules.Recommendations.Controllers;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 namespace MixMeal.Persistence.PostgreSQL.IntegrationTests.UseCases;
 

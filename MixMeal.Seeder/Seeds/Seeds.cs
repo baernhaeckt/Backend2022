@@ -1,9 +1,8 @@
-﻿namespace MixMeal.Seeder.Seeds
-{
-    public enum Seed
-    {
-        Ingredient,
+﻿namespace MixMeal.Seeder.Seeds;
 
-        Menu
-    }
+public enum Seed
+{
+    Ingredient,
+
+    Menu
 }

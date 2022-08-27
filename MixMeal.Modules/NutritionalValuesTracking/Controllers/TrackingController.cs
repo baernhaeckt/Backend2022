@@ -20,7 +20,7 @@ public class TrackingController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<ActionResult> AddFromImageAsync([FromForm] IFormFile file)
+    public async Task<ActionResult> AddFromImageAsync(IFormFile file)
     {
         await ForwardImageForProcessing(file);
         return NoContent();
@@ -32,7 +32,7 @@ public class TrackingController : ControllerBase
         // Will be changed to a typed client with factory later.
         var client = new HttpClient
         {
-            BaseAddress = new("https://mixmeal-estimator.azurewebsites.net/api/v1/estimation")  // This needs to go to config.
+            BaseAddress = new("https://mixmeal-estimator.azurewebsites.net/api/v1/estimation") // This needs to go to config.
         };
 
         var payload = new

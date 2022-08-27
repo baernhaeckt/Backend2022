@@ -1,13 +1,10 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace MixMeal.Core.Models;
+﻿namespace MixMeal.Core.Models;
 
 public class Menu : NutritionalValues
 {
     public IReadOnlyCollection<Dish> Dishes { get; set; }
 
     public string? Name { get; set; }
-
 
     public int Id
     {
