@@ -38,7 +38,7 @@ public class IngredientSeed : SeedBase
                 Carbohydrates = 23,
                 Fat = 0.9,
                     Icon = "reis",
-                ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Ice }
+                    ValidDishTypes = new List<DishType> { DishType.Bowl }
             });
 
         _seed.Add(
@@ -76,7 +76,7 @@ public class IngredientSeed : SeedBase
             _seed.Add(
                 new Ingredient()
                 {
-                    Name = "Orange",
+                    Name = "Orangen",
                     Tags = new List<IngredientTag>
                     {
                         IngredientTag.Create(IngredientTag.Fruits)
@@ -85,7 +85,7 @@ public class IngredientSeed : SeedBase
                     Proteins = 0.9,
                     Carbohydrates = 12,
                     Fat = 0.1,
-                    Icon = "orange",
+                    Icon = "orangen",
                     ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Smoothies }
                 });
 
