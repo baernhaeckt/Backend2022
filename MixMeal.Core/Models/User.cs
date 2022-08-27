@@ -2,7 +2,7 @@
 
 public class User
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string DisplayName => Firstname + " " + Lastname;
 
@@ -12,7 +12,7 @@ public class User
 
     public List<string> Roles { get; set; } = Enumerable.Empty<string>().ToList();
 
-    public string Firstname { get; set; }
+    public string Firstname { get; set; } = string.Empty;
 
-    public string Lastname { get; set; }
+    public string Lastname { get; set; } = string.Empty;
 }
