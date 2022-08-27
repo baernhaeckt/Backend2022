@@ -8,9 +8,9 @@ public class MixMealDbContext : DbContext
 {
     public DbSet<Dish> Dishes { get; set; }
 
-    public MixMealDbContext() : base()
+    public MixMealDbContext()
+        : base()
     {
-
     }
 
     public MixMealDbContext(string connectionString)
@@ -19,7 +19,7 @@ public class MixMealDbContext : DbContext
         Database.Migrate();
     }
 
-    public MixMealDbContext(DbContextOptions<MixMealDbContext> options) 
+    public MixMealDbContext(DbContextOptions<MixMealDbContext> options)
         : base(options)
     {
         Database.Migrate();
@@ -37,11 +37,14 @@ public class MixMealDbContext : DbContext
 
         modelBuilder.Entity<Dish>()
             .HasKey(d => d.Name);
+        
+        modelBuilder.Entity<User>()
+            .HasKey(d => d.Id);
 
-            modelBuilder.Entity<Allergy>()
-                .HasKey(a => a.Name);
-            modelBuilder.Entity<IngredientTag>()
-                .HasKey(t => t.Name);
+        modelBuilder.Entity<Allergy>()
+            .HasKey(a => a.Name);
+        modelBuilder.Entity<IngredientTag>()
+            .HasKey(t => t.Name);
 
         base.OnModelCreating(modelBuilder);
     }

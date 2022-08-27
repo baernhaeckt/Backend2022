@@ -6,30 +6,31 @@ namespace MixMeal.Persistence.PostgreSQL;
 
 public class PostgreSQLRepository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly DbSet<TEntity> _dbSet;
-    private readonly MixMealDbContext _dbContext;
+    protected readonly DbSet<TEntity> DbSet;
+
+    protected readonly MixMealDbContext DbContext;
 
     public PostgreSQLRepository(MixMealDbContext dbContext)
     {
-        _dbSet = dbContext.Set<TEntity>();
-        _dbContext = dbContext;
+        DbSet = dbContext.Set<TEntity>();
+        DbContext = dbContext;
     }
 
-    public IQueryable<TEntity> Queryable => _dbSet.AsQueryable();
+    public IQueryable<TEntity> Queryable => DbSet.AsQueryable();
 
     public async Task<TEntity> Create(TEntity entity)
     {
-        EntityEntry<TEntity> result = _dbSet.Add(entity);
-        await _dbContext.SaveChangesAsync();
+        EntityEntry<TEntity> result = DbSet.Add(entity);
+        await DbContext.SaveChangesAsync();
         return result.Entity;
     }
 
     public async Task Delete(TEntity entity)
     {
-        _dbSet.Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        DbSet.Remove(entity);
+        await DbContext.SaveChangesAsync();
     }
 
     public IAsyncEnumerable<TEntity> GetAll()
-            => _dbSet.AsAsyncEnumerable();
+            => DbSet.AsAsyncEnumerable();
 }

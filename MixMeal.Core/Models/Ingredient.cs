@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Formats.Asn1;
-
-namespace MixMeal.Core.Models;
+﻿namespace MixMeal.Core.Models;
 
 public class Ingredient
 {

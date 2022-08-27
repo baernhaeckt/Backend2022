@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MixMeal.Core.Extensions;
+using MixMeal.Core.Models;
+using MixMeal.Core.Repositories;
 
 namespace MixMeal.Modules.UserManagement.Controllers;
 
@@ -6,10 +9,18 @@ namespace MixMeal.Modules.UserManagement.Controllers;
 [ApiController]
 public class ProfileController : ControllerBase
 {
-    [HttpGet]
-    public Task<UserProfileResponse> Get()
+    private readonly IUserRepository _userRepository;
+
+    public ProfileController(IUserRepository userRepository)
     {
-        UserProfileResponse result = new("Marc", "marc.sallin@outlook.com");
-        return Task.FromResult(result);
+        _userRepository = userRepository;
+    }
+
+    [HttpGet]
+    public async Task<UserProfileResponse> Get()
+    {
+        User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id());
+        UserProfileResponse result = new(user.DisplayName, user.Email);
+        return result;
     }
 }

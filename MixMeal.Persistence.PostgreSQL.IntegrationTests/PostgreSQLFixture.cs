@@ -1,6 +1,9 @@
 ﻿using Ductus.FluentDocker.Services;
 using Ductus.FluentDocker.Services.Extensions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace MixMeal.Persistence.PostgreSQL.IntegrationTests;
 
@@ -40,6 +43,20 @@ public sealed class PostgreSQLFixture : IDisposable
             var endpoint = Container.ToHostExposedEndpoint($"{PostgreSQLPort}/tcp");
             return $"Host=localhost;Port={endpoint.Port};Database={PostgreSQLDatabase};Username={PostgreSQLUser};Password={PostgreSQLPassword}";
         }
+    }
+
+    public void OverwriteConnectionString(IWebHostBuilder builder)
+    {
+        var testConfigurationSettings = new Dictionary<string, string>
+        {
+            { "ConnectionStrings:MixMealDBContext", ConnectionString }
+        };
+
+        var testConfiguration = new ConfigurationBuilder()
+            .AddInMemoryCollection(testConfigurationSettings)
+            .Build();
+
+        builder.UseConfiguration(testConfiguration);
     }
 
     public void Dispose()

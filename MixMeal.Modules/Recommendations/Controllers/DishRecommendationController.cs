@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MixMeal.Modules.Recommendations.Models;
+﻿using MixMeal.Modules.Recommendations.Models;
 
 namespace MixMeal.Modules.Recommendations.Controllers;
 

@@ -10,5 +10,6 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddPostgreSQL(this IServiceCollection services, ConfigurationManager configuration)
         => services
         .AddDbContext<MixMealDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("MixMealDBContext")))
-        .AddScoped(typeof(IRepository<>), typeof(PostgreSQLRepository<>));
+        .AddScoped(typeof(IRepository<>), typeof(PostgreSQLRepository<>))
+        .AddScoped(typeof(IUserRepository), typeof(UserRepository));
 }

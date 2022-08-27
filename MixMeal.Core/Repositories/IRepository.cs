@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace MixMeal.Core.Repositories;
+﻿namespace MixMeal.Core.Repositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {
