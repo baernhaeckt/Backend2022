@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MixMeal.Core.Models;
-using MixMeal.Core.Repositories;
 using MixMeal.Persistence.PostgreSQL;
-using System.Reflection.Metadata.Ecma335;
 
 namespace MixMeal.Modules.Ingredients;
 

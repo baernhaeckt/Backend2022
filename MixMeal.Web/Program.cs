@@ -3,6 +3,7 @@ using MixMeal.Persistence.PostgreSQL;
 using System.Text.Json.Serialization;
 using MixMeal.Web;
 using MixMeal.Web.Middleware;
+using MixMeal.Modules.Recommendations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +13,13 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgreSQL(builder.Configuration);
 builder.Services.AddUserManagement();
 builder.Services.AddJwtAuthentication();
+builder.Services.AddRecommendation();
 
 var app = builder.Build();
 
