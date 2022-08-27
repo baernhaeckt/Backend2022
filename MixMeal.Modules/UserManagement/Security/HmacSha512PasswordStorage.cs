@@ -14,7 +14,7 @@ public class HmacSha512PasswordStorage : IPasswordStorage
 
     public const int Pbkdf2Iterations = 64000;
 
-    public const KeyDerivationPrf KeyDerivationPrf = KeyDerivationPrf.HMACSHA512;
+    public const KeyDerivationPrf KeyDerivationPrf = Microsoft.AspNetCore.Cryptography.KeyDerivation.KeyDerivationPrf.HMACSHA512;
 
     // These constants define the encoding and may not be changed.
     public const int HashSections = 5;

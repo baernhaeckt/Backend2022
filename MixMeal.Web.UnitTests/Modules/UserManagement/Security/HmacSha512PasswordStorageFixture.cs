@@ -1,4 +1,4 @@
-﻿using MixMeal.Modules.UserManagement;
+﻿using MixMeal.Modules.UserManagement.Security;
 using Xunit;
 
 namespace MixMeal.Web.UnitTests.Modules.UserManagement.Security;
