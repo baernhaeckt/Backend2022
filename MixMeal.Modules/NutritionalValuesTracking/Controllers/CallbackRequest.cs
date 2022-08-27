@@ -2,15 +2,22 @@
 
 public class CallbackRequest
 {
-    public Guid Token { get; set; }
+    public Guid user_id { get; set; }
 
-    public Guid UserId { get; set; }
+    public Guid token { get; set; }
 
-    public double Calories { get; init; }
+    public Estimation[] estimations { get; set; }
+}
 
-    public double Proteins { get; init; }
+public class Estimation
+{
+    public string class_name { get; set; }
 
-    public double Carbohydrates { get; init; }
+    public float estimated_calories { get; set; }
 
-    public double Fat { get; init; }
+    public float estimated_protein { get; set; }
+
+    public float estimated_fat { get; set; }
+
+    public float estimated_carbohydrates { get; set; }
 }

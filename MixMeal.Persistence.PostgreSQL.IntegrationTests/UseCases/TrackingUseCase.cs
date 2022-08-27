@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
 using MixMeal.Modules.Recommendations.Controllers;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace MixMeal.Persistence.PostgreSQL.IntegrationTests.UseCases;
 
@@ -65,36 +66,10 @@ public class TrackingUseCase
 
         var client = application.CreateClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
-        
-        CallbackRequest request1 = new()
-        {
-            Calories = 240,
-            Fat = 12,
-            Carbohydrates = 11,
-            Proteins = 12,
-            Token = Guid.NewGuid(),
-            UserId = user1.Id
-        };
 
-        CallbackRequest request2 = new()
-        {
-            Calories = 145,
-            Fat = 8,
-            Carbohydrates = 1,
-            Proteins = 12,
-            Token = Guid.NewGuid(),
-            UserId = user1.Id
-        };
-        
-        CallbackRequest request3 = new()
-        {
-            Calories = 240,
-            Fat = 12,
-            Carbohydrates = 11,
-            Proteins = 12,
-            Token = Guid.NewGuid(),
-            UserId = user2.Id // For another user
-        };
+        var request1 = JsonSerializer.Deserialize<CallbackRequest>(TestData.GetForUser(user1.Id));
+        var request2 = JsonSerializer.Deserialize<CallbackRequest>(TestData.GetForUser(user1.Id));
+        var request3 = JsonSerializer.Deserialize<CallbackRequest>(TestData.GetForUser(user2.Id));
 
         // Act
         HttpResponseMessage response1 = await client.PostAsJsonAsync("api/tracking/callback", request1);
@@ -111,5 +86,57 @@ public class TrackingUseCase
 
         userFromDb.Should().NotBeNull();
         userFromDb.IntakeTrackingRecords.Count().Should().Be(2);
+    }
+
+    private static class TestData
+    {
+        public static string GetForUser(Guid userId) => @"{
+    ""user_id"": ""oh"",
+    ""token"": ""token"",
+    ""estimations"": [
+        {
+            ""class_name"": ""vegetable"",
+            ""estimated_calories"": 15.094855048323035,
+            ""estimated_protein"": 15.094855048323035,
+            ""estimated_fat"": 15.094855048323035,
+            ""estimated_carbohydrates"": 15.094855048323035
+        },
+        {
+            ""class_name"": ""fruit"",
+            ""estimated_calories"": 4.450170344517813,
+            ""estimated_protein"": 4.450170344517813,
+            ""estimated_fat"": 4.450170344517813,
+            ""estimated_carbohydrates"": 4.450170344517813
+        },
+        {
+            ""class_name"": ""pasta"",
+            ""estimated_calories"": 138.76781692406178,
+            ""estimated_protein"": 21.161327638739067,
+            ""estimated_fat"": 21.161327638739067,
+            ""estimated_carbohydrates"": 295.57646930449204
+        },
+        {
+            ""class_name"": ""fruit"",
+            ""estimated_calories"": 4.815182642611842,
+            ""estimated_protein"": 4.815182642611842,
+            ""estimated_fat"": 4.815182642611842,
+            ""estimated_carbohydrates"": 4.815182642611842
+        },
+        {
+            ""class_name"": ""bread"",
+            ""estimated_calories"": 63.626729164393105,
+            ""estimated_protein"": 63.626729164393105,
+            ""estimated_fat"": 39.93491758992442,
+            ""estimated_carbohydrates"": 205.77759861120526
+        },
+        {
+            ""class_name"": ""pork"",
+            ""estimated_calories"": 166.77658631066376,
+            ""estimated_protein"": 48.45965651929845,
+            ""estimated_fat"": 255.51428365418772,
+            ""estimated_carbohydrates"": 137.19735386282244
+        }
+    ]
+}".Replace("oh", userId.ToString()).Replace("token", Guid.NewGuid().ToString());
     }
 }
