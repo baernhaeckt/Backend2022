@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 using MixMeal.Web;
 using MixMeal.Web.Middleware;
 using MixMeal.Modules.Recommendations;
+using MixMeal.Modules.Ingredients;
+using MixMeal.Modules.Menus;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +18,36 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Xund anstatt Pfung" });
+    c.AddSecurityDefinition(
+        "bearer",
+        new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter into field the word 'Bearer' following by space and JWT",
+            Name = "Authorization",
+            BearerFormat = "JWT",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer"
+        });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearer" }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+});
 builder.Services.AddPostgreSQL(builder.Configuration);
-builder.Services.AddUserManagement();
+builder.Services
+    .AddUserManagement()
+    .AddMenu()
+    .AddIngredients();
 builder.Services.AddJwtAuthentication();
 builder.Services.AddRecommendation();
 

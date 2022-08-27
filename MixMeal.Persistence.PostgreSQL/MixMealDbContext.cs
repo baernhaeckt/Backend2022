@@ -14,6 +14,8 @@ public class MixMealDbContext : DbContext
 
     public DbSet<Allergy> Allergies { get; set; }
 
+    public DbSet<Menu> Menu { get; set; }
+
     public MixMealDbContext()
       : base()
     {
@@ -46,7 +48,9 @@ public class MixMealDbContext : DbContext
             .HasMany(i => i.Tags);
 
         modelBuilder.Entity<Dish>()
-            .HasKey(d => d.Name);
+            .HasKey(d => d.Id);
+        modelBuilder.Entity<Menu>()
+            .HasKey(m => m.Id);
 
 
        modelBuilder.Entity<User>()

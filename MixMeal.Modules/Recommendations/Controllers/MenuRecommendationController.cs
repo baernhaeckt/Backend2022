@@ -18,7 +18,10 @@ public class MenuRecommendationController : ControllerBase
 
     private readonly IMenueNutritionalValuesCalculator _nutritionalValuesCalculator;
 
-    public MenuRecommendationController(IUserRepository userRepository, IMenueNutritionalValuesCalculator nutritionalValuesCalculator, IRecommendationEngine recommendationEngine)
+    public MenuRecommendationController(
+        IUserRepository userRepository, 
+        IMenueNutritionalValuesCalculator nutritionalValuesCalculator, 
+        IRecommendationEngine recommendationEngine)
     {
         _recommendationEngine = recommendationEngine;
         _userRepository = userRepository;
