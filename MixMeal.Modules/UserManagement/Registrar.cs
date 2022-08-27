@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MixMeal.Modules.UserManagement.Abstraction;
 using MixMeal.Modules.UserManagement.Controllers;
+using MixMeal.Modules.UserManagement.Security;
 
 namespace MixMeal.Modules.UserManagement;
 
@@ -10,7 +11,8 @@ public static class Registrar
     {
         // Security Utilities
         services.AddSingleton<ISecurityTokenFactory, FakeSecurityTokenFactory>();
-        services.AddSingleton<IPasswordStorage, FakePasswordStorage>();
+        services.AddSingleton<IPasswordStorage, HmacSha512PasswordStorage>();
+        services.AddSingleton<IPasswordGenerator, StaticPasswordGenerator>();
 
         return services;
     }

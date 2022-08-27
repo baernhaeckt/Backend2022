@@ -13,10 +13,13 @@ public class UsersController : ControllerBase
 
     private readonly IPasswordStorage _passwordStorage;
 
-    public UsersController(ISecurityTokenFactory securityTokenFactory, IPasswordStorage passwordStorage)
+    private readonly IPasswordGenerator _passwordGenerator;
+
+    public UsersController(ISecurityTokenFactory securityTokenFactory, IPasswordStorage passwordStorage, IPasswordGenerator passwordGenerator)
     {
         _securityTokenFactory = securityTokenFactory;
         _passwordStorage = passwordStorage;
+        _passwordGenerator = passwordGenerator;
     }
 
     [HttpPost(nameof(Login))]
@@ -45,7 +48,8 @@ public class UsersController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<UserLoginResponse>> Register([FromBody] RegisterUserRequest request)
     {
-        var user = new User { Email = request.Email, PasswordHash = _passwordStorage.Create(request.Password) };
+        string password = _passwordGenerator.Generate();
+        var user = new User { Email = request.Email, PasswordHash = _passwordStorage.Create(password) };
         //await _writer.InsertAsync(user);
 
         var response = new UserLoginResponse(_securityTokenFactory.Create(user.Id, user.Email, Enumerable.Empty<string>()));
