@@ -1,6 +1,8 @@
 ﻿namespace MixMeal.Core.Models;
 
-public record Menu(IReadOnlyCollection<Dish> Dishes, string? Name = null)
+public class Menu
 {
-    public IReadOnlyCollection<Dish> Dishes { get; } = Dishes;
+    public IReadOnlyCollection<Dish> Dishes { get; set;  }
+
+    public string? Name { get; set; }
 }

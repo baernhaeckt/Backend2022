@@ -8,8 +8,14 @@ public class MixMealDbContext : DbContext
 {
     public DbSet<Dish> Dishes { get; set; }
 
+    public DbSet<Ingredient> Ingredients { get; set; }
+
+    public DbSet<IngredientTag> IngredientTags { get; set; }
+
+    public DbSet<Allergy> Allergies { get; set; }
+
     public MixMealDbContext()
-        : base()
+      : base()
     {
     }
 
@@ -34,6 +40,8 @@ public class MixMealDbContext : DbContext
             .HasConversion(v => string.Join(',', v), v => ToValidDishTypes(v).ToList())
             .Metadata
             .SetValueComparer(EnumToStringValueComparer);
+        modelBuilder.Entity<Ingredient>()
+            .HasMany(i => i.Tags);
 
         modelBuilder.Entity<Dish>()
             .HasKey(d => d.Name);

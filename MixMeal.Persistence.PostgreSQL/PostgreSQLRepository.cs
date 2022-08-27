@@ -6,9 +6,6 @@ namespace MixMeal.Persistence.PostgreSQL;
 
 public class PostgreSQLRepository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    protected readonly DbSet<TEntity> DbSet;
-
-    protected readonly MixMealDbContext DbContext;
 
     public PostgreSQLRepository(MixMealDbContext dbContext)
     {
@@ -16,7 +13,9 @@ public class PostgreSQLRepository<TEntity> : IRepository<TEntity> where TEntity 
         DbContext = dbContext;
     }
 
-    public IQueryable<TEntity> Queryable => DbSet.AsQueryable();
+    protected MixMealDbContext DbContext { get; }
+
+    protected DbSet<TEntity> DbSet { get; }
 
     public async Task<TEntity> Create(TEntity entity)
     {
@@ -31,6 +30,6 @@ public class PostgreSQLRepository<TEntity> : IRepository<TEntity> where TEntity 
         await DbContext.SaveChangesAsync();
     }
 
-    public IAsyncEnumerable<TEntity> GetAll()
-            => DbSet.AsAsyncEnumerable();
+    public IEnumerable<TEntity> GetAll() 
+        => DbSet;
 }

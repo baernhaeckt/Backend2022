@@ -35,7 +35,7 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
 
                     b.HasIndex("IngredientName");
 
-                    b.ToTable("Allergy");
+                    b.ToTable("Allergies");
                 });
 
             modelBuilder.Entity("MixMeal.Core.Models.Dish", b =>
@@ -89,7 +89,7 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
 
                     b.HasIndex("DishName");
 
-                    b.ToTable("Ingredient");
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("MixMeal.Core.Models.IngredientTag", b =>
@@ -104,7 +104,7 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
 
                     b.HasIndex("IngredientName");
 
-                    b.ToTable("IngredientTag");
+                    b.ToTable("IngredientTags");
                 });
 
             modelBuilder.Entity("MixMeal.Core.Models.User", b =>

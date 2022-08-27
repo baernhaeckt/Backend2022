@@ -18,12 +18,12 @@ public class Ingredient
     ///     Provides a list of <see cref="Allergy"/> which could be triggered by
     ///     this <see cref="Ingredient"/>.
     /// </summary>
-    public List<Allergy> Allergies { get; init; } = new List<Allergy>();
+    public List<Allergy> Allergies { get; set; } = new List<Allergy>();
 
     /// <summary>
     ///     List of Tags to describe and group <see cref="Ingredient"/>.
     /// </summary>
-    public List<IngredientTag> Tags { get; init; } = new List<IngredientTag>();
+    public List<IngredientTag> Tags { get; set; } = new List<IngredientTag>();
 
     public bool Premium { get; set; } = false;
 

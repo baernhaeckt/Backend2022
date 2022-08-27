@@ -11,16 +11,17 @@ public class MenuRecommendationController
     [HttpPost]
     public async IAsyncEnumerable<Menu> Recommend([FromBody] RecommendMenuRequest request)
     {
-        yield return new Menu(
-            new List<Dish>()
+        yield return new Menu()
+        {
+            Dishes = new List<Dish>()
             {
                 new Dish()
-                { 
-                    Name = "SuperBowl", 
+                {
+                    Name = "SuperBowl",
                     DishType = DishType.Bowl,
                     Ingredients = new List<Ingredient>()
                     {
-                        new Ingredient() { 
+                        new Ingredient() {
                             Name = "Rüebli",
                             Icon = "🥕",
                             Calories = 17,
@@ -71,6 +72,7 @@ public class MenuRecommendationController
                     }
                 }
             },
-            "Your Favorite");
+            Name = "Your Favorite"
+        };
     }
 }

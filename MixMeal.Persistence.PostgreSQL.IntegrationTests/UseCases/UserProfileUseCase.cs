@@ -35,7 +35,7 @@ public class UserProfileUseCase
         var client = application.CreateClient();
 
         // Assert
-        HttpResponseMessage response = await client.GetAsync("api/profile");
+        HttpResponseMessage response = await client.GetAsync("api/users/profile");
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.Unauthorized);
     }
 
@@ -64,7 +64,7 @@ public class UserProfileUseCase
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 
         // Act
-        HttpResponseMessage response = await client.GetAsync("api/profile");
+        HttpResponseMessage response = await client.GetAsync("api/users/profile");
 
         // Assert
         response.EnsureSuccessStatusCode();

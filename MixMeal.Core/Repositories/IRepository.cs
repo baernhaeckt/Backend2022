@@ -6,7 +6,5 @@ public interface IRepository<TEntity> where TEntity : class
 
     Task Delete(TEntity entity);
 
-    IAsyncEnumerable<TEntity> GetAll();
-
-    IQueryable<TEntity> Queryable { get; }
+    IEnumerable<TEntity> GetAll();
 }
