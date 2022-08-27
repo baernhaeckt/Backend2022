@@ -43,13 +43,15 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
+
 builder.Services.AddPostgreSQL(builder.Configuration);
+builder.Services.AddJwtAuthentication();
+
 builder.Services
     .AddUserManagement()
     .AddMenu()
+    .AddRecommendation()
     .AddIngredients();
-builder.Services.AddJwtAuthentication();
-builder.Services.AddRecommendation();
 
 var app = builder.Build();
 

@@ -5,4 +5,11 @@ services:
     image: ${DOCKER_REGISTRY-}mixmealweb
     build:
       context: .
-      dockerfile: MixMeal.Web/Dockerfile
+      dockerfile: ../MixMeal.Web/Dockerfile
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespw

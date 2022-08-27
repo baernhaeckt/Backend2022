@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MixMeal.Core.Extensions;
 using MixMeal.Core.Models;
 using MixMeal.Core.Repositories;
+using MixMeal.Modules.NutritionalValuesTracking.Controllers;
 using System.Net.Http.Json;
 
 namespace MixMeal.Modules.Recommendations.Controllers;
@@ -20,9 +21,9 @@ public class TrackingController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<ActionResult> AddFromImageAsync(IFormFile file)
+    public async Task<ActionResult> AddFromImageAsync([FromForm] UploadRequest request)
     {
-        await ForwardImageForProcessing(file);
+        await ForwardImageForProcessing(request.File);
         return NoContent();
     }
 
@@ -50,7 +51,8 @@ public class TrackingController : ControllerBase
         };
 
         request.Content = content;
-        await client.SendAsync(request);
+        HttpResponseMessage responseMessage = await client.SendAsync(request);
+        responseMessage.EnsureSuccessStatusCode();
     }
 
     [HttpPost("callback")]
