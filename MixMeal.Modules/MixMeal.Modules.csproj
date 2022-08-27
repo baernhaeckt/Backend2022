@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MixMeal.Core\MixMeal.Core.csproj" />
+    <ProjectReference Include="..\MixMeal.Persistence.PostgreSQL\MixMeal.Persistence.PostgreSQL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

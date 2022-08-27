@@ -1,11 +1,17 @@
 using MixMeal.Modules.UserManagement;
 using MixMeal.Persistence.PostgreSQL;
+using System.Text.Json.Serialization;
 using MixMeal.Web;
 using MixMeal.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddControllersAsServices();
+builder.Services.AddControllers()
+    .AddControllersAsServices()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgreSQL(builder.Configuration);

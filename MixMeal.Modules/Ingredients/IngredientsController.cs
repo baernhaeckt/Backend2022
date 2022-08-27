@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MixMeal.Core.Models;
 using MixMeal.Core.Repositories;
+using MixMeal.Persistence.PostgreSQL;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MixMeal.Modules.Ingredients;
 
@@ -8,22 +11,37 @@ namespace MixMeal.Modules.Ingredients;
 [Route("api/ingredients")]
 public class IngredientsController
 {
-    private readonly IRepository<Ingredient> repository;
+    private readonly MixMealDbContext dbContext;
 
-    public IngredientsController(IRepository<Ingredient> repository)
+    public IngredientsController(MixMealDbContext dbContext)
     {
-        this.repository = repository;
+        this.dbContext = dbContext;
     }
 
     [HttpPost]
-    public Task<Ingredient> PostIngredient(Ingredient ingredient)
-        => repository.Create(ingredient);
+    public async Task<Ingredient> PostIngredient(Ingredient ingredient)
+    {
+        ingredient.Tags = ingredient.Tags.Select(GetOrCreate).ToList();
+        ingredient.Allergies = ingredient.Allergies.Select(GetOrCreate).ToList();
+
+        var result = dbContext.Add(ingredient);
+        await dbContext.SaveChangesAsync();
+        return result.Entity;
+    }
+
+    private IngredientTag GetOrCreate(IngredientTag tag)
+        => dbContext.Set<IngredientTag>().FirstOrDefault(e => e.Name == tag.Name) 
+            ?? dbContext.Set<IngredientTag>().Add(tag).Entity;
+
+    private Allergy GetOrCreate(Allergy allergy)
+        => dbContext.Set<Allergy>().FirstOrDefault(e => e.Name == allergy.Name)
+            ?? dbContext.Set<Allergy>().Add(allergy).Entity;
 
     [HttpGet]
-    public IAsyncEnumerable<Ingredient> GetIngredients()
-        => repository.GetAll();
+    public IEnumerable<Ingredient> GetIngredients()
+        => dbContext.Set<Ingredient>().Include(i => i.Allergies).Include(i => i.Tags);
 
     [HttpGet("forDish")]
     public IEnumerable<Ingredient> GetIngredients(DishType dish)
-        => repository.Queryable.Where(ingredient => ingredient.ValidDishTypes.Contains(dish));
+        => GetIngredients().Where(ingredient => ingredient.ValidDishTypes.Contains(dish));
 }
