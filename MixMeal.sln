@@ -9,8 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixMeal.Web.UnitTests", "Mi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{F0326C5C-8676-4083-A51F-5599BB361E36}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\main.yml = .github\workflows\main.yml
 		.github\workflows\feature.yml = .github\workflows\feature.yml
+		.github\workflows\main.yml = .github\workflows\main.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{EF15D366-9B36-4454-B031-A701C9B786FE}"
@@ -25,9 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixMeal.Modules", "MixMeal.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DC023970-8DEC-4838-87FC-9AD6C2428EF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixMeal.Persistence.PostgreSQL", "MixMeal.Persistence.PostgreSQL\MixMeal.Persistence.PostgreSQL.csproj", "{23162A27-1EA0-433F-8996-D26070608799}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixMeal.Persistence.PostgreSQL", "MixMeal.Persistence.PostgreSQL\MixMeal.Persistence.PostgreSQL.csproj", "{23162A27-1EA0-433F-8996-D26070608799}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixMeal.Persistence.PostgreSQL.IntegrationTests", "MixMeal.Persistence.PostgreSQL.IntegrationTests\MixMeal.Persistence.PostgreSQL.IntegrationTests.csproj", "{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixMeal.Persistence.PostgreSQL.IntegrationTests", "MixMeal.Persistence.PostgreSQL.IntegrationTests\MixMeal.Persistence.PostgreSQL.IntegrationTests.csproj", "{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3568B31A-4700-45CA-8CDF-7BC5E2813CB6}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\calculateCodeCoverage.ps1 = scripts\calculateCodeCoverage.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
