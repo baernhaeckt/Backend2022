@@ -428,6 +428,22 @@ public class IngredientSeed : SeedBase
             _seed.Add(
                 new Ingredient()
                 {
+                    Name = "grüner Salat",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.GreenSalat)
+                    },
+                    Calories = 40.8,
+                    Proteins = 0,
+                    Carbohydrates = 4.5,
+                    Fat = 2.9,
+                    Icon = "gruenersalat",
+                    ValidDishTypes = new List<DishType> { DishType.Bowl }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
                     Name = "Cubes",
                     Tags = new List<IngredientTag>
                     {
