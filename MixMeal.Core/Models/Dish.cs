@@ -1,16 +1,18 @@
 ﻿namespace MixMeal.Core.Models;
 
-public record Dish(DishType DishType, DishSize DishSize, IReadOnlyCollection<Ingredient> Ingredients, string? Name = null)
+public class Dish
 {
-    public string Name { get; init; } = Name ?? Guid.NewGuid().ToString();
+    public string Name { get; init; }
+
+    public DishType DishType { get; set; }
 
     /// <summary>
     ///     Defines the amount of <see cref="Ingredient"/>s valid for this <see cref="Dish"/>.
     /// </summary>
-    public DishSize DishSize { get; } = DishSize;
+    public DishSize DishSize { get; init; }
 
     /// <summary>
     ///     <see cref="Ingredient"/> in the Meal.
     /// </summary>
-    public IReadOnlyCollection<Ingredient> Ingredients { get; } = Ingredients;
+    public IReadOnlyCollection<Ingredient> Ingredients { get; init; }
 }

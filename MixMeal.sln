@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixMeal.Modules", "MixMeal.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DC023970-8DEC-4838-87FC-9AD6C2428EF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixMeal.Persistence.PostgreSQL", "MixMeal.Persistence.PostgreSQL\MixMeal.Persistence.PostgreSQL.csproj", "{23162A27-1EA0-433F-8996-D26070608799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixMeal.Persistence.PostgreSQL.IntegrationTests", "MixMeal.Persistence.PostgreSQL.IntegrationTests\MixMeal.Persistence.PostgreSQL.IntegrationTests.csproj", "{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{DC023970-8DEC-4838-87FC-9AD6C2428EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC023970-8DEC-4838-87FC-9AD6C2428EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC023970-8DEC-4838-87FC-9AD6C2428EF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23162A27-1EA0-433F-8996-D26070608799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23162A27-1EA0-433F-8996-D26070608799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23162A27-1EA0-433F-8996-D26070608799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23162A27-1EA0-433F-8996-D26070608799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC642DCC-868E-4E48-AE78-5BFB7AAE4884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

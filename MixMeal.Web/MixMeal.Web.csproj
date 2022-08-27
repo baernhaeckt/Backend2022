@@ -10,12 +10,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MixMeal.Core\MixMeal.Core.csproj" />
     <ProjectReference Include="..\MixMeal.Modules\MixMeal.Modules.csproj" />
+    <ProjectReference Include="..\MixMeal.Persistence.PostgreSQL\MixMeal.Persistence.PostgreSQL.csproj" />
   </ItemGroup>
 
 </Project>
