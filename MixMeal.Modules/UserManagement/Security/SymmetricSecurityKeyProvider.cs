@@ -7,9 +7,11 @@ namespace MixMeal.Modules.UserManagement.Security;
 
 public class SymmetricSecurityKeyProvider : ISecurityKeyProvider
 {
-    private readonly IConfiguration _configuration;
 
-    public SymmetricSecurityKeyProvider(IConfiguration configuration) => _configuration = configuration;
+    private readonly Func<string> _JwtSecurityKeyFetcher;
 
-    public SymmetricSecurityKey GetSecurityKey() => new(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]));
+    public SymmetricSecurityKeyProvider(IConfiguration configuration) => _JwtSecurityKeyFetcher = () => configuration["JwtSecurityKey"];
+
+    public SymmetricSecurityKeyProvider(string key) => _JwtSecurityKeyFetcher = () => key;
+    public SymmetricSecurityKey GetSecurityKey() => new(Encoding.UTF8.GetBytes(_JwtSecurityKeyFetcher()));
 }

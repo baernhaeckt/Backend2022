@@ -1,18 +1,10 @@
 ﻿namespace MixMeal.Core.Models;
 
-public class Ingredient
+public class Ingredient : NutritionalValues
 {
     public string Name { get; init; }
 
     public string Icon { get; init; }
-
-    public double Calories { get; init; }
-
-    public double Proteins { get; init; }
-
-    public double Carbohydrates { get; init; }
-
-    public double Fat { get; init; }
 
     /// <summary>
     ///     Provides a list of <see cref="Allergy"/> which could be triggered by

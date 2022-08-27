@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MixMeal.Core.Models;
-using MixMeal.Persistence.PostgreSQL;
 
 namespace MixMeal.Modules.Ingredients;
 
@@ -9,37 +8,31 @@ namespace MixMeal.Modules.Ingredients;
 [Route("api/ingredients")]
 public class IngredientsController
 {
-    private readonly MixMealDbContext dbContext;
+    private readonly IngredientsRepository repository;
 
-    public IngredientsController(MixMealDbContext dbContext)
+    public IngredientsController(IngredientsRepository repository)
     {
-        this.dbContext = dbContext;
+        this.repository = repository;
     }
 
     [HttpPost]
-    public async Task<Ingredient> PostIngredient(Ingredient ingredient)
-    {
-        ingredient.Tags = ingredient.Tags.Select(GetOrCreate).ToList();
-        ingredient.Allergies = ingredient.Allergies.Select(GetOrCreate).ToList();
+    public Task<Ingredient> PostIngredient(Ingredient ingredient)
+        => repository.GetOrCreate(ingredient);
 
-        var result = dbContext.Add(ingredient);
-        await dbContext.SaveChangesAsync();
-        return result.Entity;
-    }
-
-    private IngredientTag GetOrCreate(IngredientTag tag)
-        => dbContext.Set<IngredientTag>().FirstOrDefault(e => e.Name == tag.Name) 
-            ?? dbContext.Set<IngredientTag>().Add(tag).Entity;
-
-    private Allergy GetOrCreate(Allergy allergy)
-        => dbContext.Set<Allergy>().FirstOrDefault(e => e.Name == allergy.Name)
-            ?? dbContext.Set<Allergy>().Add(allergy).Entity;
-
+    /// <summary>
+    ///     Get all <see cref="Ingredient"/> present.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public IEnumerable<Ingredient> GetIngredients()
-        => dbContext.Set<Ingredient>().Include(i => i.Allergies).Include(i => i.Tags);
+        => repository.GetIngredients();
 
+    /// <summary>
+    ///     Get all <see cref="Ingredient"/> valid for the given <see cref="DishType"/>.
+    /// </summary>
+    /// <param name="dish"></param>
+    /// <returns></returns>
     [HttpGet("forDish")]
     public IEnumerable<Ingredient> GetIngredients(DishType dish)
-        => GetIngredients().Where(ingredient => ingredient.ValidDishTypes.Contains(dish));
+        => repository.GetIngredients(dish);
 }
