@@ -37,7 +37,11 @@ public class MixMealDbContext : DbContext
 
         modelBuilder.Entity<Dish>()
             .HasKey(d => d.Name);
-            
+
+            modelBuilder.Entity<Allergy>()
+                .HasKey(a => a.Name);
+            modelBuilder.Entity<IngredientTag>()
+                .HasKey(t => t.Name);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -5,7 +5,7 @@ using MixMeal.Core.Repositories;
 namespace MixMeal.Modules.Ingredients;
 
 [ApiController]
-[Route("api/_admin/{controller}")]
+[Route("api/ingredients")]
 public class IngredientsController
 {
     private readonly IRepository<Ingredient> repository;
@@ -22,4 +22,8 @@ public class IngredientsController
     [HttpGet]
     public IAsyncEnumerable<Ingredient> GetIngredients()
         => repository.GetAll();
+
+    [HttpGet("forDish")]
+    public IEnumerable<Ingredient> GetIngredients(DishType dish)
+        => repository.Queryable.Where(ingredient => ingredient.ValidDishTypes.Contains(dish));
 }
