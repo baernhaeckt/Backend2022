@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend2022\MixMeal.Core\MixMeal.Core.csproj" />
-    <ProjectReference Include="..\Backend2022\MixMeal.Modules\MixMeal.Modules.csproj" />
+    <ProjectReference Include="..\MixMeal.Core\MixMeal.Core.csproj" />
+    <ProjectReference Include="..\MixMeal.Modules\MixMeal.Modules.csproj" />
   </ItemGroup>
 
   <ItemGroup>
