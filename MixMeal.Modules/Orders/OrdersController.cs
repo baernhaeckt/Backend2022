@@ -16,6 +16,5 @@ public class OrdersController
     }
 
     [HttpPost]
-    public Task<Menu> Submit([FromBody] Menu menu)
-        => _repository.CreateOrUpdate(menu);
+    public Menu Submit([FromBody] Menu menu) => menu;
 }
