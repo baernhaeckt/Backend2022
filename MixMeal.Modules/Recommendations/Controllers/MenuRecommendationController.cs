@@ -1,78 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MixMeal.Core.Extensions;
 using MixMeal.Core.Models;
+using MixMeal.Core.Repositories;
+using MixMeal.Modules.Recommendations.Abstractions;
 using MixMeal.Modules.Recommendations.Models;
 
 namespace MixMeal.Modules.Recommendations.Controllers;
 
 [ApiController]
 [Route("api/recommend/menu")]
-public class MenuRecommendationController
+public class MenuRecommendationController : ControllerBase
 {
-    [HttpPost]
-    public async IAsyncEnumerable<Menu> Recommend([FromBody] RecommendMenuRequest request)
+    private readonly IRecommendationEngine _recommendationEngine;
+
+    private readonly IUserRepository _userRepository;
+
+    private readonly IMenueNutritionalValuesCalculator _nutritionalValuesCalculator;
+
+    public MenuRecommendationController(IUserRepository userRepository, IMenueNutritionalValuesCalculator nutritionalValuesCalculator, IRecommendationEngine recommendationEngine)
     {
-        yield return new Menu()
-        {
-            Dishes = new List<Dish>()
-            {
-                new Dish()
-                {
-                    Name = "SuperBowl",
-                    DishType = DishType.Bowl,
-                    Ingredients = new List<Ingredient>()
-                    {
-                        new Ingredient() {
-                            Name = "Rüebli",
-                            Icon = "🥕",
-                            Calories = 17,
-                            Carbohydrates = 7,
-                            Fat = 0,
-                            ValidDishTypes = new List<DishType>
-                            {
-                                DishType.Bowl,
-                                DishType.Ice
-                            }
-                        },
-                        new Ingredient() {
-                            Name = "Rüebli",
-                            Icon = "🥕",
-                            Calories = 17,
-                            Carbohydrates = 7,
-                            Fat = 0,
-                            ValidDishTypes = new List<DishType>
-                            {
-                                DishType.Bowl,
-                                DishType.Ice
-                            }
-                        },
-                        new Ingredient() {
-                            Name = "Avocado",
-                            Icon = "🥑",
-                            Calories = 17,
-                            Carbohydrates = 7,
-                            Fat = 120,
-                            ValidDishTypes = new List<DishType>
-                            {
-                                DishType.Bowl,
-                                DishType.Ice
-                            }
-                        },
-                        new Ingredient() {
-                            Name = "Pilzli",
-                            Icon = "🍄",
-                            Calories = 30,
-                            Carbohydrates = 10,
-                            Fat = 10,
-                            ValidDishTypes = new List<DishType>
-                            {
-                                DishType.Bowl,
-                                DishType.Ice
-                            }
-                        }
-                    }
-                }
-            },
-            Name = "Your Favorite"
-        };
+        _recommendationEngine = recommendationEngine;
+        _userRepository = userRepository;
+        _nutritionalValuesCalculator = nutritionalValuesCalculator;
+    }
+
+    [HttpPost]
+    public async Task<RecommendMenuResponse> Recommend([FromBody] RecommendMenuRequest request)
+    {
+        User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id());
+        NutritionalValues nutritionalValues = _nutritionalValuesCalculator.Calculate(user.GetDailyDemand(), user.GetDailyIntake());
+        IEnumerable<Menu> menus = _recommendationEngine.RecommendMenus(nutritionalValues, request.Except);
+        return new RecommendMenuResponse(menus);
     }
 }
