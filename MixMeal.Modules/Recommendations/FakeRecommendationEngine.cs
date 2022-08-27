@@ -5,7 +5,7 @@ namespace MixMeal.Modules.Recommendations;
 
 public class FakeRecommendationEngine : IRecommendationEngine
 {
-    public IEnumerable<Menu> RecommendMenus(NutritionalValues expectedNutritionalValues, IEnumerable<DishType> dishTypesToExclude)
+    public IEnumerable<Menu> GetData()
     {
         yield return new Menu()
         {
@@ -108,7 +108,7 @@ public class FakeRecommendationEngine : IRecommendationEngine
             },
             Name = "Your Favorite"
         };
-        
+
         yield return new Menu()
         {
             Dishes = new List<Dish>()
@@ -329,4 +329,13 @@ public class FakeRecommendationEngine : IRecommendationEngine
             Name = "Your Favorite"
         };
     }
+
+    public IEnumerable<Dish> RecommendDishes(NutritionalValues expectedNutritionalValues, DishType dishType)
+         => GetData().SelectMany(m => m.Dishes).Where(m => m.DishType == dishType).Take(5);
+
+    public IEnumerable<Menu> RecommendMenus(NutritionalValues expectedNutritionalValues, IEnumerable<DishType> dishTypesToExclude)
+        => GetData().Where(m => !HasDishesOfTypes(m, dishTypesToExclude)).Take(5);
+
+    private bool HasDishesOfTypes(Menu menu, IEnumerable<DishType> dishesToCheck)
+        => menu.Dishes.Select(d => d.DishType).Intersect(dishesToCheck).Any();
 }
