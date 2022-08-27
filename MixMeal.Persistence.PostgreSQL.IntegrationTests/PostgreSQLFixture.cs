@@ -38,7 +38,7 @@ public sealed class PostgreSQLFixture : IDisposable
         get
         {
             var endpoint = Container.ToHostExposedEndpoint($"{PostgreSQLPort}/tcp");
-            return $"Host={endpoint.Address};Port={endpoint.Port};Database={PostgreSQLDatabase};Username={PostgreSQLUser};Password={PostgreSQLPassword}";
+            return $"Host=localhost;Port={endpoint.Port};Database={PostgreSQLDatabase};Username={PostgreSQLUser};Password={PostgreSQLPassword}";
         }
     }
 
