@@ -20,3 +20,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Used to expose this class to the test project
+public partial class Program { }

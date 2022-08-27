@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using MixMeal.Modules.UserManagement.Abstraction;
 
-namespace MixMeal.Modules.UserManagement;
+namespace MixMeal.Modules.UserManagement.Security;
 
 public class HmacSha512PasswordStorage : IPasswordStorage
 {
@@ -14,7 +14,7 @@ public class HmacSha512PasswordStorage : IPasswordStorage
 
     public const int Pbkdf2Iterations = 64000;
 
-    public const KeyDerivationPrf KeyDerivationPrf = Microsoft.AspNetCore.Cryptography.KeyDerivation.KeyDerivationPrf.HMACSHA512;
+    public const KeyDerivationPrf KeyDerivationPrf = KeyDerivationPrf.HMACSHA512;
 
     // These constants define the encoding and may not be changed.
     public const int HashSections = 5;

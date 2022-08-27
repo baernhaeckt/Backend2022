@@ -1,4 +1,4 @@
-﻿namespace MixMeal.Modules.UserManagement;
+﻿namespace MixMeal.Modules.UserManagement.Security;
 
 public class CannotPerformOperationException : Exception
 {

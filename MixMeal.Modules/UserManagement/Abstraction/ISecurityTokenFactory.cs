@@ -2,5 +2,5 @@
 
 public interface ISecurityTokenFactory
 {
-    string Create(int id, string subject, IEnumerable<string> roles);
+    string Create(Guid id, string subject, IEnumerable<string> roles);
 }

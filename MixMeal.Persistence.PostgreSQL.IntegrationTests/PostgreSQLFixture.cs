@@ -23,7 +23,7 @@ public sealed class PostgreSQLFixture : IDisposable
         Container = new Ductus.FluentDocker.Builders.Builder()
             .UseContainer()
             .UseImage("postgres")
-            .WithHostName("rabbitmq")
+            .WithHostName("postgres")
             .WithEnvironment($"POSTGRES_USER={PostgreSQLUser}", $"POSTGRES_PASSWORD={PostgreSQLPassword}", $"POSTGRES_DB={PostgreSQLDatabase}")
             .ExposePort(PostgreSQLPort)
             .WaitForMessageInLog("database system is ready to accept connections")

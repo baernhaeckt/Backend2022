@@ -1,8 +1,8 @@
 ﻿using MixMeal.Modules.UserManagement.Abstraction;
 
-namespace MixMeal.Modules.UserManagement;
+namespace MixMeal.Modules.UserManagement.Security;
 
 public class FakeSecurityTokenFactory : ISecurityTokenFactory
 {
-    public string Create(int id, string subject, IEnumerable<string> roles) => "bullshit";
+    public string Create(Guid id, string subject, IEnumerable<string> roles) => "bullshit";
 }
