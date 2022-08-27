@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Xunit;
+using System.Net;
 
 namespace MixMeal.Persistence.PostgreSQL.IntegrationTests.UseCases;
 
@@ -82,5 +83,27 @@ public class RegistrationUseCase
         UserLoginResponse result = await response.Content.ReadFromJsonAsync<UserLoginResponse>();
         result.Token.Should().NotBeNullOrWhiteSpace();
         _postgreSQLFixture.DbContext.Set<User>().FirstOrDefault(u => u.Email == request.Email).Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task UsersController_ShouldReturn404_WhenUserNotExists()
+    {
+        // Arrange
+        var application = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(_postgreSQLFixture.OverwriteConnectionString);
+
+        var client = application.CreateClient();
+
+        UserLoginRequest request = new()
+        {
+            Email = "xsund.pfund1@test.ch",
+            Password = "1234"
+        };
+
+        // Act
+        HttpResponseMessage response = await client.PostAsJsonAsync("api/users/login", request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 }

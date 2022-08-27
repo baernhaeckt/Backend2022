@@ -5,7 +5,7 @@ using MixMeal.Core.Repositories;
 
 namespace MixMeal.Modules.UserManagement.Controllers;
 
-[Route("api/profile")]
+[Route("api/users/profile")]
 [ApiController]
 public class ProfileController : ControllerBase
 {
