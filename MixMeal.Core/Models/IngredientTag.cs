@@ -16,4 +16,5 @@ public class IngredientTag
     public const string ExtraSideDishes = "extra Beilagen";
     public const string GreenSalat = "grüner Salat";
     public const string Cubes = "Cubes";
+    public const string IceCream = "Ice Cream";
 }

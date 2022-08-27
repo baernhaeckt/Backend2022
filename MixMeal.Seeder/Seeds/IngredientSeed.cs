@@ -70,7 +70,7 @@ public class IngredientSeed : SeedBase
                 Carbohydrates = 14,
                 Fat = 0.2,
                     Icon = "apfel",
-                    ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Ice, DishType.Smoothies }
+                    ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Smoothies }
                 });
 
             _seed.Add(
@@ -86,7 +86,7 @@ public class IngredientSeed : SeedBase
                     Carbohydrates = 12,
                     Fat = 0.1,
                     Icon = "orange",
-                ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Ice, DishType.Smoothies }
+                    ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Smoothies }
                 });
 
             _seed.Add(
@@ -118,7 +118,7 @@ public class IngredientSeed : SeedBase
                     Carbohydrates = 10,
                     Fat = 0.2,
                     Icon = "karotten",
-                    ValidDishTypes = new List<DishType> { DishType.Bowl }
+                    ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Smoothies }
                 });
 
             _seed.Add(
@@ -150,7 +150,7 @@ public class IngredientSeed : SeedBase
                     Carbohydrates = 2,
                     Fat = 0.1,
                     Icon = "gurken",
-                    ValidDishTypes = new List<DishType> { DishType.Bowl }
+                    ValidDishTypes = new List<DishType> { DishType.Bowl, DishType.Smoothies }
                 });
 
             _seed.Add(
@@ -438,7 +438,103 @@ public class IngredientSeed : SeedBase
                     Carbohydrates = 24,
                     Fat = 5,
                     Icon = "cubes",
-                    ValidDishTypes = new List<DishType> { DishType.Bowl }
+                    ValidDishTypes = new List<DishType> { DishType.PotatoCubes }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Bananeneis",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.IceCream)
+                    },
+                    Calories = 99,
+                    Proteins = 1.2,
+                    Carbohydrates = 22.2,
+                    Fat = 0.2,
+                    Icon = "bananeneis",
+                    ValidDishTypes = new List<DishType> { DishType.Ice }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Beerenmischung",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.IceCream)
+                    },
+                    Calories = 71,
+                    Proteins = 1.05,
+                    Carbohydrates = 14.75,
+                    Fat = 0,
+                    Icon = "beerenmischung",
+                    ValidDishTypes = new List<DishType> { DishType.Ice }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Haselnüsse",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.IceCream)
+                    },
+                    Calories = 231,
+                    Proteins = 4.65,
+                    Carbohydrates = 20.9,
+                    Fat = 61,
+                    Icon = "haselnüsse",
+                    ValidDishTypes = new List<DishType> { DishType.Ice }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Erbsenprotein",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.IceCream)
+                    },
+                    Calories = 102.5,
+                    Proteins = 20,
+                    Carbohydrates = 0.25,
+                    Fat = 2.5,
+                    Icon = "erbsenprotein",
+                    ValidDishTypes = new List<DishType> { DishType.Ice }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Ingwer",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.Raw)
+                    },
+                    Calories = 50,
+                    Proteins = 1.2,
+                    Carbohydrates = 9,
+                    Fat = 1,
+                    Icon = "ingwer",
+                    ValidDishTypes = new List<DishType> { DishType.Smoothies }
+                });
+
+            _seed.Add(
+                new Ingredient()
+                {
+                    Name = "Zitronen",
+                    Tags = new List<IngredientTag>
+                    {
+                        IngredientTag.Create(IngredientTag.Raw)
+                    },
+                    Calories = 39,
+                    Proteins = 0.7,
+                    Carbohydrates = 3.2,
+                    Fat = 0.6,
+                    Icon = "zitronen",
+                    ValidDishTypes = new List<DishType> { DishType.Smoothies }
             });
     }
 
