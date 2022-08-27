@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Xunit;
 using MixMeal.Modules.Recommendations.Models;
 using System.Net.Http.Headers;
-using System.Text.Json.Serialization;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;

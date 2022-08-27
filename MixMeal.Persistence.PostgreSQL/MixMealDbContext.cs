@@ -35,22 +35,33 @@ public class MixMealDbContext : DbContext
     {
         modelBuilder.Entity<Ingredient>()
             .HasKey(i => i.Name);
+
         modelBuilder.Entity<Ingredient>()
             .Property(i => i.ValidDishTypes)
             .HasConversion(v => string.Join(',', v), v => ToValidDishTypes(v).ToList())
             .Metadata
             .SetValueComparer(EnumToStringValueComparer);
+
         modelBuilder.Entity<Ingredient>()
             .HasMany(i => i.Tags);
 
         modelBuilder.Entity<Dish>()
             .HasKey(d => d.Name);
-        
-        modelBuilder.Entity<User>()
+
+
+       modelBuilder.Entity<User>()
             .HasKey(d => d.Id);
+
+        modelBuilder.Entity<IntakeTrackingRecord>()
+            .HasOne(i => i.User)
+            .WithMany(u => u.IntakeTrackingRecords);
+
+        modelBuilder.Entity<IntakeTrackingRecord>()
+            .HasKey(i => i.Id);
 
         modelBuilder.Entity<Allergy>()
             .HasKey(a => a.Name);
+
         modelBuilder.Entity<IngredientTag>()
             .HasKey(t => t.Name);
 

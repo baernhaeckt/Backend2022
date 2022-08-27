@@ -42,7 +42,18 @@ public class User
 
     private int SexSpecficValue => Sex == Sex.Male ? 5 : -161;
 
-    public NutritionalValues GetDailyDemand() => new NutritionalValues();
+    /// <summary>
+    ///  https://www.omnicalculator.com/health/dri#how-to-calculate-dri
+    /// </summary>
+    public NutritionalValues DailyDemand => new()
+    {
+        Calories = BasalMetabolicRate,
+        Proteins = (BasalMetabolicRate * 0.2) / 4,
+        Fat = (BasalMetabolicRate * 0.27) / 9,
+        Carbohydrates = (BasalMetabolicRate * 0.27) / 4
+    };
 
-    public NutritionalValues GetDailyIntake() => new NutritionalValues();
+    public List<IntakeTrackingRecord> IntakeTrackingRecords { get; set; }
+
+    public NutritionalValues DailyIntake => new NutritionalValues();
 }
