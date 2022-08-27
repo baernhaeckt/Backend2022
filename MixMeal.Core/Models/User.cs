@@ -53,7 +53,13 @@ public class User
         Carbohydrates = (BasalMetabolicRate * 0.27) / 4
     };
 
-    public List<IntakeTrackingRecord> IntakeTrackingRecords { get; set; }
+    public List<IntakeTrackingRecord> IntakeTrackingRecords { get; set; } = Enumerable.Empty<IntakeTrackingRecord>().ToList();
 
-    public NutritionalValues DailyIntake => new NutritionalValues();
+    public NutritionalValues DailyIntake => new()
+    {
+        Calories = IntakeTrackingRecords.Where(i => i.Timestamp.Date == DateTime.UtcNow.Date).Sum(i => i.Calories),
+        Proteins = IntakeTrackingRecords.Where(i => i.Timestamp.Date == DateTime.UtcNow.Date).Sum(i => i.Proteins),
+        Carbohydrates = IntakeTrackingRecords.Where(i => i.Timestamp.Date == DateTime.UtcNow.Date).Sum(i => i.Carbohydrates),
+        Fat = IntakeTrackingRecords.Where(i => i.Timestamp.Date == DateTime.UtcNow.Date).Sum(i => i.Fat),
+    };
 }
