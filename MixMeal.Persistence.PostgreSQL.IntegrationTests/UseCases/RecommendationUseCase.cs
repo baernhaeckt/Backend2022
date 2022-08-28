@@ -59,7 +59,8 @@ public class RecommendationUseCase
 
         // Assert
         response.EnsureSuccessStatusCode();
-        RecommendMenuResponse result = await response.Content.ReadFromJsonAsync<RecommendMenuResponse>(jsonSerializerOptions);
-        result.Menus.Should().HaveCountGreaterThan(0);
+        RecommendMenuResponse? result = await response.Content.ReadFromJsonAsync<RecommendMenuResponse>(jsonSerializerOptions);
+        result.Should().NotBeNull();
+        result!.Menus.Should().HaveCountGreaterThan(0);
     }
 }

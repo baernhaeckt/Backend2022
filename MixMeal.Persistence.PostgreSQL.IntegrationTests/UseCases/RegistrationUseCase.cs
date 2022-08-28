@@ -42,8 +42,9 @@ public class RegistrationUseCase
         HttpResponseMessage response = await client.PostAsJsonAsync("api/users/register", request);
         response.EnsureSuccessStatusCode();
 
-        UserLoginResponse result = await response.Content.ReadFromJsonAsync<UserLoginResponse>();
-        result.Token.Should().NotBeNullOrWhiteSpace();
+        UserLoginResponse? result = await response.Content.ReadFromJsonAsync<UserLoginResponse>();
+        result.Should().NotBeNull();
+        result!.Token.Should().NotBeNullOrWhiteSpace();
         _postgreSQLFixture.DbContext.Set<User>().FirstOrDefault(u => u.Email == request.Email).Should().NotBeNull();
     }
 
@@ -80,8 +81,9 @@ public class RegistrationUseCase
 
         // Assert
         response.EnsureSuccessStatusCode();
-        UserLoginResponse result = await response.Content.ReadFromJsonAsync<UserLoginResponse>();
-        result.Token.Should().NotBeNullOrWhiteSpace();
+        UserLoginResponse? result = await response.Content.ReadFromJsonAsync<UserLoginResponse>();
+        result.Should().NotBeNull();
+        result!.Token.Should().NotBeNullOrWhiteSpace();
         _postgreSQLFixture.DbContext.Set<User>().FirstOrDefault(u => u.Email == request.Email).Should().NotBeNull();
     }
 

@@ -4,6 +4,8 @@ using MixMeal.Core.Models;
 
 namespace MixMeal.Persistence.PostgreSQL;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 public class MixMealDbContext : DbContext
 {
     public DbSet<Dish> Dishes { get; set; }
@@ -75,9 +77,10 @@ public class MixMealDbContext : DbContext
     private static IEnumerable<DishType> ToValidDishTypes(string csvField)
         => csvField.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(val => (DishType)Enum.Parse(typeof(DishType), val));
 
-    private static ValueComparer<IReadOnlyCollection<DishType>> EnumToStringValueComparer
-        => new ValueComparer<IReadOnlyCollection<DishType>>(
-                (left, right) => left.SequenceEqual(right),
+    private static ValueComparer<IReadOnlyCollection<DishType>> EnumToStringValueComparer => new(
+                (left, right) => left!.SequenceEqual(right!),
                 c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                 c => c.ToHashSet());
 }
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

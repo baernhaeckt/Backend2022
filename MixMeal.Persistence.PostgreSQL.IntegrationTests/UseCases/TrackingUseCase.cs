@@ -79,12 +79,12 @@ public class TrackingUseCase
         response1.EnsureSuccessStatusCode();
         response2.EnsureSuccessStatusCode();
         response3.EnsureSuccessStatusCode();
-        User userFromDb = _postgreSQLFixture.DbContext.Set<User>()
+        User? userFromDb = _postgreSQLFixture.DbContext.Set<User>()
             .Include(u => u.IntakeTrackingRecords)
             .FirstOrDefault(u => u.Id == user1.Id);
 
         userFromDb.Should().NotBeNull();
-        userFromDb.IntakeTrackingRecords.Count().Should().Be(2);
+        userFromDb!.IntakeTrackingRecords.Count().Should().Be(2);
     }
 
     private static class TestData
