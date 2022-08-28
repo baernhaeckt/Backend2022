@@ -1,4 +1,5 @@
-﻿using MixMeal.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MixMeal.Core.Models;
 using MixMeal.Modules.Ingredients;
 using MixMeal.Persistence.PostgreSQL;
 
@@ -22,8 +23,7 @@ public class MenuRepository
             return menu;
         }
 
-        Dish[] dishes = await Task.WhenAll(menu.Dishes.Select(GetOrCreate));
-        menu.Dishes = dishes;
+        menu.Dishes = menu.Dishes.Select(d => GetOrCreate(d).Result).ToList();
 
         menu.Calories = menu.Dishes.Sum(i => i.Calories);
         menu.Proteins = menu.Dishes.Sum(i => i.Proteins);
@@ -38,23 +38,28 @@ public class MenuRepository
 
     private async Task<Dish> GetOrCreate(Dish dish)
     {
-        if (_dbContext.Set<Dish>().Any(d => d.Id == dish.Id))
+        Dish? entity = _dbContext.Set<Dish>()
+            .Include(d => d.Ingredients)
+            .FirstOrDefault(d => d.Id == dish.Id);
+        if (entity != null)
         {
-            return dish;
+            return entity;
         }
 
-        Ingredient[] ingredients = await Task.WhenAll(dish
+        dish.Ingredients = dish
             .Ingredients
             .Distinct()
-            .Select(_ingredientsRepository.GetOrCreate));
-
-        dish.Ingredients = ingredients;
+            .Select(i => _ingredientsRepository.GetOrCreate(i).Result)
+            .ToList();
 
         dish.Calories = dish.Ingredients.Sum(i => i.Calories);
         dish.Proteins = dish.Ingredients.Sum(i => i.Proteins);
         dish.Carbohydrates = dish.Ingredients.Sum(i => i.Carbohydrates);
         dish.Fat = dish.Ingredients.Sum(i => i.Fat);
 
-        return dish;
+        var result = _dbContext.Dishes.Add(dish);
+        await _dbContext.SaveChangesAsync();
+
+        return result.Entity;
     }
 }

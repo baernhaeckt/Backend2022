@@ -1,4 +1,5 @@
-﻿using MixMeal.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MixMeal.Core.Models;
 using MixMeal.Modules.Recommendations.Abstractions;
 using MixMeal.Persistence.PostgreSQL;
 
@@ -17,6 +18,8 @@ public class DistanceRecommendationEngine : IRecommendationEngine
         NutritionalValues expectedNutritionalValues,
         IEnumerable<DishType> dishTypesToExclude)
         => _dbContext.Set<Menu>()
+        .Include(m => m.Dishes)
+        .ThenInclude(d => d.Ingredients)
         .ToList()
         .Where(m => !HasDishesOfTypes(m, dishTypesToExclude))
         .OrderBy(m => m.Distance(expectedNutritionalValues))
@@ -26,6 +29,7 @@ public class DistanceRecommendationEngine : IRecommendationEngine
         NutritionalValues expectedNutritionalValues,
         DishType dishType)
         => _dbContext.Set<Dish>()
+        .Include(d => d.Ingredients)
         .Where(d => d.DishType == dishType)
         .ToList()
         .OrderBy(m => m.Distance(expectedNutritionalValues))
