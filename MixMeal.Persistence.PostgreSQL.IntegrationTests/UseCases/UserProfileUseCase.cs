@@ -69,6 +69,6 @@ public class UserProfileUseCase
         // Assert
         response.EnsureSuccessStatusCode();
         string result = await response.Content.ReadAsStringAsync();
-        result.Should().Be("{\"displayName\":\"xsund pfund\",\"email\":\"xsund.pfund@test.ch\"}");
+        result.Should().Be("{\"id\":\"af09657c-e006-4c4a-ab2f-e420a9c21df0\",\"displayName\":\"xsund pfund\",\"email\":\"xsund.pfund@test.ch\",\"sex\":\"Female\",\"age\":0,\"height\":0,\"activityFactor\":\"LittleOrNo\",\"dailyDemand\":{\"calories\":-161,\"proteins\":-8.05,\"carbohydrates\":-10.867500000000001,\"fat\":-4.830000000000001},\"intakeTrackingRecords\":[]}");
     }
 }
