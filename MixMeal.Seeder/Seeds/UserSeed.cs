@@ -5,7 +5,7 @@ namespace MixMeal.Seeder.Seeds;
 
 class UserSeed : SeedBase
 {
-	private static List<User> _seed = new List<User>();
+	private static readonly List<User> _seed = new();
 
 	static UserSeed()
 	{
@@ -18,7 +18,8 @@ class UserSeed : SeedBase
                 Height = 170,
                 Weight = 80,
                 Age = 35,
-                Sex = Sex.Male
+                Sex = Sex.Male,
+                ActivityFactor = ActivityFactorPerWeek.SixToSevenTimes
             }
         );
 
@@ -31,7 +32,8 @@ class UserSeed : SeedBase
                 Height = 150,
                 Weight = 60,
                 Age = 30,
-                Sex = Sex.Female
+                Sex = Sex.Female,
+                ActivityFactor = ActivityFactorPerWeek.ThreeToFiveTimes
             }
         );
 
@@ -44,7 +46,8 @@ class UserSeed : SeedBase
                 Height = 175,
                 Weight = 80,
                 Age = 36,
-                Sex = Sex.Male
+                Sex = Sex.Male,
+                ActivityFactor = ActivityFactorPerWeek.TwoToThreeTimes
             }
         );
 
@@ -57,7 +60,8 @@ class UserSeed : SeedBase
                 Height = 195,
                 Weight = 100,
                 Age = 49,
-                Sex = Sex.Male
+                Sex = Sex.Male,
+                ActivityFactor = ActivityFactorPerWeek.LittleOrNo
             }
         );
     }
@@ -67,7 +71,7 @@ class UserSeed : SeedBase
 
     }
 
-    public static readonly UserSeed Instance = new UserSeed();
+    public static readonly UserSeed Instance = new();
 
     public override Task Seed()
         => Post("api/users/register", _seed);

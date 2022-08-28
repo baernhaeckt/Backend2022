@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MixMeal.Seeder": {
+      "commandName": "Project",
+      "commandLineArgs": "seed --seed User"
+    }
+  }
+}

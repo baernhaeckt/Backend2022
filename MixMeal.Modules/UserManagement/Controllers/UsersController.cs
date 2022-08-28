@@ -46,7 +46,18 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<UserLoginResponse>> Register([FromBody] RegisterUserRequest request)
     {
         string password = _passwordGenerator.Generate();
-        var user = new User { Email = request.Email, PasswordHash = _passwordStorage.Create(password) };
+        var user = new User 
+        { 
+            Email = request.Email,
+            Firstname = request.Firstname,
+            Lastname = request.Lastname,
+            Age = request.Age,
+            Weight = request.Weight,
+            Height = request.Height,
+            ActivityFactor = request.ActivityFactor,
+            Sex = request.Sex,
+            PasswordHash = _passwordStorage.Create(password)
+        };
         await _userRepository.Create(user);
 
         var response = new UserLoginResponse(_securityTokenFactory.Create(user.Id, user.Email, Enumerable.Empty<string>()));

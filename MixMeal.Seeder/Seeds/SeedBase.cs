@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MixMeal.Core.Models;
 using MixMeal.Modules.UserManagement.Security;
-using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MixMeal.Seeder.Seeds;
 
 public abstract class SeedBase
 {
-    private RestApiConfiguration _configuration;
+    private readonly RestApiConfiguration _configuration;
 
     protected SeedBase()
     {
@@ -49,7 +49,7 @@ public abstract class SeedBase
     {
         get
         {
-            JwtSecurityTokenFactory securityTokenFactory = new JwtSecurityTokenFactory(new SymmetricSecurityKeyProvider(LoadConfiguration().SecurityKey));
+            JwtSecurityTokenFactory securityTokenFactory = new(new SymmetricSecurityKeyProvider(LoadConfiguration().SecurityKey));
             string jwt = securityTokenFactory!.Create(Guid.NewGuid(), "admin", Enumerable.Empty<string>());
 
             return new AuthenticationHeaderValue("Bearer", jwt);
@@ -61,11 +61,11 @@ public abstract class SeedBase
 
     protected HttpContent AsHttpJsonContent<TEntity>(TEntity entity)
     {
-        var myContent = JsonConvert.SerializeObject(entity);
-        var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-        var httpContent = new ByteArrayContent(buffer);
+        var options = new JsonSerializerOptions();
+        options.Converters.Add(new JsonStringEnumConverter());
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(entity, options);
+        var httpContent = new ByteArrayContent(bytes);
         httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
         return httpContent;
     }
 
