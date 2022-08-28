@@ -561,11 +561,6 @@ public class IngredientSeed : SeedBase
 
     public static readonly IngredientSeed Instance = new IngredientSeed();
 
-    public override async Task Seed()
-    {
-        foreach(var ingredient in _seed)
-        {
-            await client.PostAsync("api/ingredients", AsHttpJsonContent(ingredient));
-        }
-    }
+    public override Task Seed()
+        => Post("api/ingredients", _seed);
 }

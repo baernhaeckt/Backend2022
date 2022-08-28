@@ -26,6 +26,7 @@ public class IngredientsRepository
 
         var result = _dbContext.Add(ingredient);
         await _dbContext.SaveChangesAsync();
+
         return result.Entity;
     }
 

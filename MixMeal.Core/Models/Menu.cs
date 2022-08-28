@@ -6,10 +6,11 @@ public class Menu : NutritionalValues
 
     public string? Name { get; set; }
 
+    private int? _id;
     public int Id
     {
-        get => GetHashCode();
-        set { }
+        get { return _id ??= GetHashCode(); }
+        set { _id = value; }
     }
 
     public override int GetHashCode()

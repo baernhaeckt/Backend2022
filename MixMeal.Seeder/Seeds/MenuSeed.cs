@@ -1490,13 +1490,6 @@ public class MenuSeed : SeedBase
 
     public static readonly MenuSeed Instance = new MenuSeed();
 
-    public override async Task Seed()
-    {
-        foreach (var menu in _seed)
-        {
-            Console.WriteLine($"creating new menu: {menu.Id}");
-            var result = await client.PostAsync("api/menus", AsHttpJsonContent(menu));
-            Console.WriteLine($"Result: {result}");
-        }
-    }
+    public override Task Seed()
+        => Post("api/menus", _seed);
 }

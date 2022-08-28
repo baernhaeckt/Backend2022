@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MixMeal.Core.Models;
 using MixMeal.Modules.UserManagement.Security;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -66,5 +67,15 @@ public abstract class SeedBase
         httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
         return httpContent;
+    }
+
+    protected async Task Post<TEntity>(string path, IEnumerable<TEntity> seedData)
+    {
+        Console.WriteLine($"Seeding to: {Path.Combine(client.BaseAddress!.ToString(), path)}");
+        foreach (TEntity entity in seedData)
+        {
+            HttpResponseMessage result = await client.PostAsync(path, AsHttpJsonContent(entity));
+            Console.WriteLine($"Seed: {result.StatusCode}");
+        }
     }
 }

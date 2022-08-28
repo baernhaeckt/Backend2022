@@ -2,7 +2,24 @@
 
 public class Dish : NutritionalValues
 {
-    public string Name { get; init; }
+    private string _name;
+
+    public string Name 
+    { 
+        get
+        {
+            return _name ??= GenerateName();
+        }
+        init
+        { 
+            _name = value; 
+        }
+    }
+
+    private string GenerateName()
+    {
+        return string.Join(" ", Ingredients.Select(i => i.Name));
+    }
 
     public DishType DishType { get; set; }
 
@@ -15,12 +32,13 @@ public class Dish : NutritionalValues
     /// <summary>
     ///     <see cref="Ingredient"/> in the Meal.
     /// </summary>
-    public IReadOnlyCollection<Ingredient> Ingredients { get; set; }
+    public IReadOnlyCollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
+    private int? _id;
     public int Id
     {
-        get => GetHashCode();
-        set { }
+        get { return _id ??= GetHashCode(); }
+        set { _id = value; }
     }
 
     /// <summary>
