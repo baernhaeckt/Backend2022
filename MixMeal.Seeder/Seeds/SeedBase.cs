@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MixMeal.Core.Models;
-using MixMeal.Modules.UserManagement.Abstraction;
 using MixMeal.Modules.UserManagement.Security;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MixMeal.Seeder.Seeds;
 

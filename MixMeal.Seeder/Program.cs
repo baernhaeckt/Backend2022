@@ -1,7 +1,5 @@
 ﻿using Cocona;
-using Microsoft.Extensions.Configuration;
 using MixMeal.Modules.Ingredients;
-using MixMeal.Seeder;
 using MixMeal.Seeder.Seeds;
 
 var app = CoconaApp.CreateBuilder().Build();

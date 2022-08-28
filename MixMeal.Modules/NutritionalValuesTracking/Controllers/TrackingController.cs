@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MixMeal.Core.Extensions;
 using MixMeal.Core.Models;
 using MixMeal.Core.Repositories;
-using MixMeal.Modules.NutritionalValuesTracking.Controllers;
-using System.Net.Http.Json;
 
 namespace MixMeal.Modules.Recommendations.Controllers;
 
@@ -20,44 +16,9 @@ public class TrackingController : ControllerBase
         _repository = repository;
     }
 
-    [HttpPost("upload")]
-    public async Task<ActionResult> AddFromImageAsync([FromForm] UploadRequest request)
-    {
-        await ForwardImageForProcessing(request.File);
-        return NoContent();
-    }
-
-    private async Task ForwardImageForProcessing(IFormFile file)
-    {
-        // We know, we shouldn't do this because it opens new TCP ports for every request.
-        // Will be changed to a typed client with factory later.
-        var client = new HttpClient
-        {
-            BaseAddress = new("https://mixmeal-estimator.azurewebsites.net/api/v1/estimation") // This needs to go to config.
-        };
-
-        var payload = new
-        {
-            Token = Guid.NewGuid(), // Will be persisted in the future as safety mechanism
-            CallbackUrl = "https://mixmeal-backend.azurewebsites.net/api/tracking/callback", // This needs to go to config.
-            UserId = HttpContext.User.Id()
-        };
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, "file");
-        using var content = new MultipartFormDataContent
-        {
-            { new StreamContent(file.OpenReadStream()), file.Name, file.FileName },
-            { JsonContent.Create(payload), "metadata" },
-        };
-
-        request.Content = content;
-        HttpResponseMessage responseMessage = await client.SendAsync(request);
-        responseMessage.EnsureSuccessStatusCode();
-    }
-
     [HttpPost("callback")]
     [AllowAnonymous] // This action is secured by a one time usage token
-    public async Task<ActionResult> ImageRecognitonCallbackAsync([FromBody] CallbackRequest request)
+    public async Task<ActionResult> ImageRecognitonWebhook([FromBody] CallbackRequest request)
     {
         await _repository.Create(new IntakeTrackingRecord
         {
