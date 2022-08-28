@@ -1,4 +1,6 @@
-﻿namespace MixMeal.Core.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MixMeal.Core.Models;
 
 public class Dish : NutritionalValues
 {
@@ -33,6 +35,9 @@ public class Dish : NutritionalValues
     ///     <see cref="Ingredient"/> in the Meal.
     /// </summary>
     public IReadOnlyCollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+
+    [JsonIgnore]
+    public IReadOnlyCollection<Menu> UsedIn { get; set; } = new List<Menu>();
 
     private int? _id;
     public int Id

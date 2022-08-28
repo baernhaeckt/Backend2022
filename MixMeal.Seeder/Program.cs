@@ -18,7 +18,9 @@ app.AddCommand("seed", async (Seed? seed) =>
             await UserSeed.Instance.Seed();
             break;
         default:
-            Console.WriteLine("Seeding all");
+            await IngredientSeed.Instance.Seed();
+            await MenuSeed.Instance.Seed();
+            await UserSeed.Instance.Seed();
             break;
     }
 });

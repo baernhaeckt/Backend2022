@@ -51,11 +51,18 @@ public class MixMealDbContext : DbContext
 
         modelBuilder.Entity<Dish>()
             .HasKey(d => d.Id);
+        modelBuilder.Entity<Dish>()
+            .HasMany(d => d.Ingredients)
+            .WithMany(i => i.UsedIn);
+
         modelBuilder.Entity<Menu>()
             .HasKey(m => m.Id);
+        modelBuilder.Entity<Menu>()
+            .HasMany(m => m.Dishes)
+            .WithMany(d => d.UsedIn);
 
 
-       modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()
             .HasKey(d => d.Id);
 
         modelBuilder.Entity<IntakeTrackingRecord>()

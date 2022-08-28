@@ -23,6 +23,36 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DishIngredient", b =>
+                {
+                    b.Property<string>("IngredientsName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UsedInId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IngredientsName", "UsedInId");
+
+                    b.HasIndex("UsedInId");
+
+                    b.ToTable("DishIngredient");
+                });
+
+            modelBuilder.Entity("DishMenu", b =>
+                {
+                    b.Property<int>("DishesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsedInId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("DishesId", "UsedInId");
+
+                    b.HasIndex("UsedInId");
+
+                    b.ToTable("DishMenu");
+                });
+
             modelBuilder.Entity("MixMeal.Core.Models.Allergy", b =>
                 {
                     b.Property<string>("Name")
@@ -61,9 +91,6 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
                     b.Property<double>("Fat")
                         .HasColumnType("double precision");
 
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -72,8 +99,6 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MenuId");
 
                     b.ToTable("Dishes");
                 });
@@ -88,9 +113,6 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
 
                     b.Property<double>("Carbohydrates")
                         .HasColumnType("double precision");
-
-                    b.Property<int?>("DishId")
-                        .HasColumnType("integer");
 
                     b.Property<double>("Fat")
                         .HasColumnType("double precision");
@@ -110,8 +132,6 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Name");
-
-                    b.HasIndex("DishId");
 
                     b.ToTable("Ingredients");
                 });
@@ -236,25 +256,41 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("DishIngredient", b =>
+                {
+                    b.HasOne("MixMeal.Core.Models.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MixMeal.Core.Models.Dish", null)
+                        .WithMany()
+                        .HasForeignKey("UsedInId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DishMenu", b =>
+                {
+                    b.HasOne("MixMeal.Core.Models.Dish", null)
+                        .WithMany()
+                        .HasForeignKey("DishesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MixMeal.Core.Models.Menu", null)
+                        .WithMany()
+                        .HasForeignKey("UsedInId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MixMeal.Core.Models.Allergy", b =>
                 {
                     b.HasOne("MixMeal.Core.Models.Ingredient", null)
                         .WithMany("Allergies")
                         .HasForeignKey("IngredientName");
-                });
-
-            modelBuilder.Entity("MixMeal.Core.Models.Dish", b =>
-                {
-                    b.HasOne("MixMeal.Core.Models.Menu", null)
-                        .WithMany("Dishes")
-                        .HasForeignKey("MenuId");
-                });
-
-            modelBuilder.Entity("MixMeal.Core.Models.Ingredient", b =>
-                {
-                    b.HasOne("MixMeal.Core.Models.Dish", null)
-                        .WithMany("Ingredients")
-                        .HasForeignKey("DishId");
                 });
 
             modelBuilder.Entity("MixMeal.Core.Models.IngredientTag", b =>
@@ -275,21 +311,11 @@ namespace MixMeal.Persistence.PostgreSQL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MixMeal.Core.Models.Dish", b =>
-                {
-                    b.Navigation("Ingredients");
-                });
-
             modelBuilder.Entity("MixMeal.Core.Models.Ingredient", b =>
                 {
                     b.Navigation("Allergies");
 
                     b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("MixMeal.Core.Models.Menu", b =>
-                {
-                    b.Navigation("Dishes");
                 });
 
             modelBuilder.Entity("MixMeal.Core.Models.User", b =>

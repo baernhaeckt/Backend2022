@@ -1,4 +1,6 @@
-﻿namespace MixMeal.Core.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace MixMeal.Core.Models;
 
 public class Ingredient : NutritionalValues
 {
@@ -16,6 +18,10 @@ public class Ingredient : NutritionalValues
     ///     List of Tags to describe and group <see cref="Ingredient"/>.
     /// </summary>
     public List<IngredientTag> Tags { get; set; } = new List<IngredientTag>();
+
+
+    [JsonIgnore]
+    public IReadOnlyCollection<Dish> UsedIn { get; set; } = new List<Dish>();
 
     public bool Premium { get; set; } = false;
 
