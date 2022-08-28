@@ -615,8 +615,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -745,8 +745,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -819,8 +819,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -899,30 +899,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Cube",
-                    DishType = DishType.PotatoCubes,
-                    Ingredients = new List<Ingredient>()
-                    {
-                        new Ingredient()
-                        {
-                            Name = "Cubes",
-                            Tags = new List<IngredientTag>
-                            {
-                                IngredientTag.Create(IngredientTag.Cubes)
-                            },
-                            Calories = 182.4,
-                            Proteins = 2.5,
-                            Carbohydrates = 24,
-                            Fat = 5,
-                            Icon = "cubes",
-                            ValidDishTypes = new List<DishType> { DishType.PotatoCubes }
-                        }
-                    }
-                },
-                new Dish()
-                {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -1131,28 +1109,6 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Cube",
-                    DishType = DishType.PotatoCubes,
-                    Ingredients = new List<Ingredient>()
-                    {
-                        new Ingredient()
-                        {
-                            Name = "Cubes",
-                            Tags = new List<IngredientTag>
-                            {
-                                IngredientTag.Create(IngredientTag.Cubes)
-                            },
-                            Calories = 182.4,
-                            Proteins = 2.5,
-                            Carbohydrates = 24,
-                            Fat = 5,
-                            Icon = "cubes",
-                            ValidDishTypes = new List<DishType> { DishType.PotatoCubes }
-                        }
-                    }
-                },
-                new Dish()
-                {
                     Name = "Small Ice Cream",
                     DishType = DishType.Ice,
                     Ingredients = new List<Ingredient>()
@@ -1227,8 +1183,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -1307,30 +1263,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Cube",
-                    DishType = DishType.PotatoCubes,
-                    Ingredients = new List<Ingredient>()
-                    {
-                        new Ingredient()
-                        {
-                            Name = "Cubes",
-                            Tags = new List<IngredientTag>
-                            {
-                                IngredientTag.Create(IngredientTag.Cubes)
-                            },
-                            Calories = 182.4,
-                            Proteins = 2.5,
-                            Carbohydrates = 24,
-                            Fat = 5,
-                            Icon = "cubes",
-                            ValidDishTypes = new List<DishType> { DishType.PotatoCubes }
-                        }
-                    }
-                },
-                new Dish()
-                {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
@@ -1459,8 +1393,8 @@ public class MenuSeed : SeedBase
                 },
                 new Dish()
                 {
-                    Name = "Small Jucie",
-                    DishType = DishType.Ice,
+                    Name = "Small Juice",
+                    DishType = DishType.Smoothies,
                     Ingredients = new List<Ingredient>()
                     {
                         new Ingredient()
