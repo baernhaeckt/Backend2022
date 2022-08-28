@@ -4,5 +4,7 @@ public enum Seed
 {
     Ingredient,
 
-    Menu
+    Menu,
+
+    User
 }

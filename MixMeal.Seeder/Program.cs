@@ -14,6 +14,9 @@ app.AddCommand("seed", async (Seed? seed) =>
         case Seed.Menu:
             await MenuSeed.Instance.Seed();
             break;
+        case Seed.User:
+            await UserSeed.Instance.Seed();
+            break;
         default:
             Console.WriteLine("Seeding all");
             break;
