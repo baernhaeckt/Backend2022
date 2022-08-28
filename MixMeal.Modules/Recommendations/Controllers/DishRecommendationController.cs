@@ -36,8 +36,24 @@ public class DishRecommendationController : ControllerBase
     public async Task<RecommendDishResponse> GetRecommendations([FromBody] RecommendDishRequest request)
     {
         User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id());
-        NutritionalValues nutritionalValues = _nutritionalValuesCalculator.Calculate(user.DailyDemand, user.DailyIntake);
-        IEnumerable<Dish> dishes = _recommendationEngine.RecommendDishes(nutritionalValues, request.DishType);
+        NutritionalValues baseNutritionalValues = _nutritionalValuesCalculator.Calculate(user.DailyDemand, user.DailyIntake);
+        NutritionalValues alreadySelectedValues = FromDishes(request.Menu.Dishes);
+
+        IEnumerable<Dish> dishes = _recommendationEngine.RecommendDishes(
+            baseNutritionalValues.Diff(alreadySelectedValues), 
+            request.DishType);
+
         return new RecommendDishResponse(dishes);
+    }
+
+    private NutritionalValues FromDishes(IEnumerable<Dish> dishes)
+    {
+        return new NutritionalValues()
+        {
+            Calories = dishes.Sum(d => d.Calories),
+            Proteins = dishes.Sum(d => d.Proteins),
+            Carbohydrates = dishes.Sum(d => d.Carbohydrates),
+            Fat = dishes.Sum(d => d.Fat),
+        };
     }
 }

@@ -15,4 +15,15 @@ public class NutritionalValues
         + Math.Abs(other.Proteins - Proteins)
         + Math.Abs(other.Carbohydrates - Carbohydrates)
         + Math.Abs(other.Fat - Fat);
+
+    public NutritionalValues Diff(NutritionalValues other)
+    {
+        return new NutritionalValues()
+        {
+            Calories = Calories - other.Calories,
+            Proteins = Proteins - other.Proteins,
+            Carbohydrates = Carbohydrates - other.Carbohydrates,
+            Fat = Fat - other.Fat
+        };
+    }
 }
