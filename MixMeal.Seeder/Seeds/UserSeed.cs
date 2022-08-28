@@ -12,7 +12,7 @@ class UserSeed : SeedBase
         _seed.Add(
             new UserSeed
             {
-                Email = "marc@xunganstattpfund.ch",
+                Email = "marc@xunganstattpfung.ch",
                 Firstname = "Marc",
                 Lastname = "Xung",
                 Height = 1.70,
@@ -25,7 +25,7 @@ class UserSeed : SeedBase
         _seed.Add(
             new UserSeed
             {
-                Email = "fabienne@xunganstattpfund.ch",
+                Email = "fabienne@xunganstattpfung.ch",
                 Firstname = "Fabienne",
                 Lastname = "Meier",
                 Height = 1.50,
@@ -38,7 +38,7 @@ class UserSeed : SeedBase
         _seed.Add(
             new UserSeed
             {
-                Email = "chrigu@xunganstattpfund.ch",
+                Email = "chrigu@xunganstattpfung.ch",
                 Firstname = "Chrigu",
                 Lastname = "Keller",
                 Height = 1.75,
@@ -51,7 +51,7 @@ class UserSeed : SeedBase
         _seed.Add(
             new UserSeed
             {
-                Email = "hans@xunganstattpfund.ch",
+                Email = "hans@xunganstattpfung.ch",
                 Firstname = "hans",
                 Lastname = "Müller",
                 Height = 1.95,
