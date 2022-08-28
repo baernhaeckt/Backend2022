@@ -5,7 +5,7 @@ namespace MixMeal.Modules.UserManagement.Controllers;
 
 public class UserProfileResponse
 {
-    public UserProfileResponse(Guid id, string displayName, string email, Sex sex, int age, int height, ActivityFactorPerWeek activityFactor, NutritionalValues dailyDemand, List<IntakeTrackingRecord> intakeTrackingRecords)
+    public UserProfileResponse(Guid id, string displayName, string email, Sex sex, int age, int height, ActivityFactorPerWeek activityFactor, NutritionalValues dailyDemand)
     {
         Id = id;
         DisplayName = displayName;
@@ -15,7 +15,6 @@ public class UserProfileResponse
         Height = height;
         ActivityFactor = activityFactor;
         DailyDemand = dailyDemand;
-        IntakeTrackingRecords = intakeTrackingRecords;
     }
 
     public Guid Id { get; }
@@ -33,6 +32,4 @@ public class UserProfileResponse
     public ActivityFactorPerWeek ActivityFactor { get; }
 
     public NutritionalValues DailyDemand { get; }
-
-    public List<IntakeTrackingRecord> IntakeTrackingRecords { get; }
 }
