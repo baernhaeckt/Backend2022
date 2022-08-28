@@ -32,8 +32,10 @@ public class MenuRecommendationController : ControllerBase
     public async Task<RecommendMenuResponse> Recommend([FromBody] RecommendMenuRequest request)
     {
         User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id());
-        NutritionalValues nutritionalValues = _nutritionalValuesCalculator.Calculate(user.DailyDemand, user.DailyIntake);
-        IEnumerable<Menu> menus = _recommendationEngine.RecommendMenus(nutritionalValues, request.Except);
-        return new RecommendMenuResponse(menus);
+        NutritionalValues dailyDemand = user.DailyDemand;
+        NutritionalValues dailyIntake = user.DailyIntake;
+        NutritionalValues nutritionalValuesRecommendation = _nutritionalValuesCalculator.Calculate(dailyDemand, dailyIntake);
+        IEnumerable<Menu> menus = _recommendationEngine.RecommendMenus(nutritionalValuesRecommendation, request.Except);
+        return new RecommendMenuResponse(menus, dailyDemand, dailyIntake, nutritionalValuesRecommendation);
     }
 }
