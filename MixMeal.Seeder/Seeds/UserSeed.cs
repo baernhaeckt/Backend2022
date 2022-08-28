@@ -3,12 +3,12 @@ using MixMeal.Core;
 
 namespace MixMeal.Seeder.Seeds;
 
-class UserSeed : SeedBase
+public class UserSeed : SeedBase
 {
-	private static readonly List<User> _seed = new();
+    private static readonly List<User> _seed = new();
 
-	static UserSeed()
-	{
+    static UserSeed()
+    {
         _seed.Add(
             new User
             {

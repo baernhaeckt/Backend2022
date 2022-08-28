@@ -23,10 +23,12 @@ public class UserRepository : PostgreSQLRepository<User>, IUserRepository
         return user;
     }
 
-    public async Task<User> GetByIdOrThrowAsync(Guid id)
+    public async Task<User> GetByIdOrThrowAsync(Guid id, bool includeIntakeRecords = false)
     {
-        User? user = await DbSet.FirstOrDefaultAsync(u => u.Id == id);
-        if(user == null)
+        User? user = includeIntakeRecords
+            ? await DbSet.Include(u => u.IntakeTrackingRecords).FirstOrDefaultAsync(u => u.Id == id)
+            : await DbSet.FirstOrDefaultAsync(u => u.Id == id);
+        if (user == null)
         {
             throw new EntityNotFoundException<User>(id);
         }

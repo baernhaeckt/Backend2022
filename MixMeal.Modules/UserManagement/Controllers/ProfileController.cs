@@ -19,7 +19,7 @@ public class ProfileController : ControllerBase
     [HttpGet]
     public async Task<UserProfileResponse> Get()
     {
-        User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id());
+        User user = await _userRepository.GetByIdOrThrowAsync(HttpContext.User.Id(), true);
         UserProfileResponse result = new(
             user.Id,
             user.DisplayName,
@@ -29,8 +29,7 @@ public class ProfileController : ControllerBase
             user.Height,
             user.ActivityFactor,
             user.DailyDemand,
-            user.IntakeTrackingRecords
-            );
+            user.IntakeTrackingRecords);
         return result;
     }
 }
